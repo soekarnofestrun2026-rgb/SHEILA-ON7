@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Poliponi 2026 Bali</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+body {
+  background: #f5f5f5;
+  color: #111;
+}
+
+/* HERO */
+.hero img {
+  width: 100%;
+  display: block;
+}
+
+/* COUNTDOWN */
+.countdown-box {
+  background: #FFD600;
+  margin: 20px;
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.countdown-box h2 {
+  margin-bottom: 15px;
+}
+
+.timer {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.btn {
+  background: #FF3D00;
+  color: white;
+  padding: 15px 30px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* TICKET */
+.section {
+  padding: 20px;
+}
+
+.ticket {
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.ticket h3 {
+  margin: 10px 0;
+}
+
+.price {
+  padding: 15px;
+  border-radius: 10px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.premium { background: #FFD600; }
+.festival { background: #00C853; color: white; }
+.fast { background: #00BCD4; color: white; }
+
+/* FORM */
+.form-box {
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  margin: 20px;
+}
+
+input, select {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+/* PAYMENT TIMER */
+.payment-timer {
+  background: #FFD600;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 30px;
+  color: #555;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <img src="poster.jpg" alt="Poster Event">
+</div>
+
+<!-- COUNTDOWN -->
+<div class="countdown-box">
+  <h2>Tiket Segera Hadir</h2>
+  <div class="timer" id="countdown"></div>
+  <button class="btn" onclick="scrollToTickets()">Beli Sekarang</button>
+</div>
+
+<!-- TICKETS -->
+<div class="section" id="tickets">
+
+  <div class="ticket">
+    <h3>Presale Premium</h3>
+    <div class="price premium">Rp495.000</div>
+  </div>
+
+  <div class="ticket">
+    <h3>Presale Festival</h3>
+    <div class="price festival">Rp320.000</div>
+  </div>
+
+  <div class="ticket">
+    <h3>Presale Fast Track</h3>
+    <div class="price fast">Rp595.000</div>
+  </div>
+
+</div>
+
+<!-- FORM -->
+<div class="form-box">
+  <h3>Data Pemesan</h3>
+
+  <input type="text" placeholder="Nama Lengkap">
+  
+  <select>
+    <option>Pilih Tipe Identitas</option>
+    <option>KTP</option>
+    <option>SIM</option>
+    <option>Passport</option>
+  </select>
+
+  <input type="text" placeholder="Nomor Identitas">
+
+</div>
+
+<!-- PAYMENT TIMER -->
+<div class="payment-timer">
+  Sisa Waktu Pembayaran: <span id="payTimer">10:00</span>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <h3>Poliponi</h3>
+  <p>@poliponi.id</p>
+  <p>@letralive.official</p>
+  <p>© 2026 Poliponi Digital</p>
+</footer>
+
+<script>
+// COUNTDOWN EVENT
+const eventDate = new Date("July 4, 2026 14:00:00").getTime();
+
+const countdownFunc = setInterval(() => {
+  const now = new Date().getTime();
+  const distance = eventDate - now;
+
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+  const minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
+  const seconds = Math.floor((distance % (1000*60)) / 1000);
+
+  document.getElementById("countdown").innerHTML =
+    days + "d " + hours + "h " + minutes + "m " + seconds + "s";
+
+}, 1000);
+
+// SCROLL
+function scrollToTickets() {
+  document.getElementById("tickets").scrollIntoView({ behavior: "smooth" });
+}
+
+// PAYMENT TIMER (10 menit)
+let time = 600;
+
+const payTimer = setInterval(() => {
+  let minutes = Math.floor(time / 60);
+  let seconds = time % 60;
+
+  seconds = seconds < 10 ? "0" + seconds : seconds;
+
+  document.getElementById("payTimer").innerHTML = minutes + ":" + seconds;
+
+  time--;
+
+  if (time < 0) {
+    clearInterval(payTimer);
+    document.getElementById("payTimer").innerHTML = "Waktu Habis";
+  }
+}, 1000);
+
+</script>
+
+</body>
+</html>
